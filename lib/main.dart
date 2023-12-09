@@ -55,7 +55,36 @@ class MyHomePage extends StatelessWidget {
       ),
 
       body: Container(
-        child: Text("This is Home Screen"),
+        child: Column(
+          children: [
+            searchBar(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Padding searchBar(){
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10.0,horizontal: 18.0),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 22.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        child: TextField(
+          decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(0),
+              prefixIcon: Icon(Icons.search,color: Colors.black.withOpacity(0.8),size: 22,),
+              prefixIconConstraints: BoxConstraints(
+                  maxHeight: 20,
+                  maxWidth: 25
+              ),
+              border: InputBorder.none,
+              hintText: 'Search'
+          ),
+        ),
       ),
     );
   }
