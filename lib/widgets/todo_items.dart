@@ -18,12 +18,15 @@ class ToDOItems extends StatelessWidget {
           borderRadius: BorderRadius.circular(20.0),
         ),
         tileColor: Colors.white,
-        leading: Icon(Icons.check_box,color: Colors.deepPurple,),
+        leading: Icon(
+          toDo.isDone?Icons.check_box:Icons.check_box_outline_blank,
+          color: Colors.deepPurple,
+        ),
         title: Text(
          toDo.todoText!,
           style: TextStyle(
             fontSize: 16,
-            decoration: TextDecoration.lineThrough
+            decoration: toDo.isDone? TextDecoration.lineThrough:null,
           ),
         ),
         trailing: Container(

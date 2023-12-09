@@ -28,8 +28,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-
-  final todosList=ToDo.todoList();
+  final todosList = ToDo.todoList();
 
   @override
   Widget build(BuildContext context) {
@@ -56,35 +55,80 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 25,horizontal: 15),
-        child: Column(
-          children: [
-            //Search Bar
-            searchBar(),
+      body: Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 25, horizontal: 15),
+            child: Column(
+              children: [
+                //Search Bar
+                searchBar(),
 
-            //list
-            Expanded(
-              child: ListView(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 50,bottom:20,left: 10),
-                    child: Text(
-                      "ALL TODO",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 29.0
+                //list
+                Expanded(
+                  child: ListView(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 50, bottom: 20, left: 10),
+                        child: Text(
+                          "ALL TODO",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 29.0),
+                        ),
+                      ),
+                      for (ToDo todo in todosList) ToDOItems(toDo: todo),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
+                      margin: EdgeInsets.only(bottom: 30, right: 20, left: 20),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(0, 3),
+                            blurRadius: 10,
+                            spreadRadius: 0.0,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Add a new todo item",
+                        border: InputBorder.none,
                       ),
                     ),
                   ),
+                ),
 
-                 for(ToDo todo in todosList)
-                   ToDOItems(toDo: todo),
-                ],
-              ),
+                Container(
+                  margin: EdgeInsets.only(bottom: 30,right: 20),
+                  child: ElevatedButton(
+                    onPressed: () { },
+                    child:Text("+",style: TextStyle(fontSize: 40.0,color: Colors.white),),
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      backgroundColor: Colors.blue,
+                    ),
+                  ),
+                )
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
