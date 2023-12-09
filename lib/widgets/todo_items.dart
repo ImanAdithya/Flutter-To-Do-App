@@ -1,33 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/model/Todo.dart';
 
 class ToDOItems extends StatelessWidget {
-  const ToDOItems({super.key});
+  final ToDo toDo;
+
+   ToDOItems({Key? key,required this.toDo});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(bottom: 15),
       child: ListTile(
-        onTap: (){},
+        onTap: (){
+          print("CLICKED");
+        },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
         tileColor: Colors.white,
         leading: Icon(Icons.check_box,color: Colors.deepPurple,),
         title: Text(
-          "Check Main",
+         toDo.todoText!,
           style: TextStyle(
             fontSize: 16,
             decoration: TextDecoration.lineThrough
           ),
         ),
         trailing: Container(
+          padding: EdgeInsets.all(0),
+          margin: EdgeInsets.symmetric(vertical: 10),
           width: 35,
           height: 35,
           decoration: BoxDecoration(
             color: Colors.red,
             borderRadius: BorderRadius.circular(5),
           ),
-          child: Icon(Icons.delete,color: Colors.white,),
+          child: IconButton(
+            color: Colors.white,
+            iconSize: 20,
+            icon: Icon(Icons.delete),
+            onPressed: (){
+              print("CLICKED ON DELTE ICON");
+            },
+          ),
         ),
       ),
     );

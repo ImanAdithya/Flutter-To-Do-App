@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:todo_app/todo_items.dart';
+import 'package:todo_app/model/Todo.dart';
+import 'package:todo_app/widgets/todo_items.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+
+  final todosList=ToDo.todoList();
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +78,8 @@ class MyHomePage extends StatelessWidget {
                     ),
                   ),
 
-                  ToDOItems(),
+                 for(ToDo todo in todosList)
+                   ToDOItems(toDo: todo),
                 ],
               ),
             ),
