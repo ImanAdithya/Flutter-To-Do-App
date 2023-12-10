@@ -35,6 +35,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final todosList = ToDo.todoList();
   final _todoController=TextEditingController();
+  List<ToDo> _foundToDo=[];
+
+  @override
+  void initState() {
+    _foundToDo=todosList;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               fontWeight: FontWeight.w500, fontSize: 29.0),
                         ),
                       ),
-                      for (ToDo todo in todosList)
+                      for (ToDo todo in _foundToDo.reversed )
                         ToDOItems(
                           toDo: todo,
                           onToDoChanged: _handleToChange,
@@ -147,6 +154,21 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+
+  void runFilter(String enterKeyWord){
+    List<ToDo> results=[];
+    if(enterKeyWord.isEmpty){
+      results=todosList;
+    }else{
+      results=todosList.where((item) => item.todoText!.toLowerCase().contains(enterKeyWord.toLowerCase())).toList();
+    }
+
+    setState(() {
+      _foundToDo=results;
+    });
+
+  }
+
   void _addToDoItem(String toDo){
     setState(() {
       todosList.add(ToDo(
@@ -176,6 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
         borderRadius: BorderRadius.circular(20.0),
       ),
       child: TextField(
+        onChanged: (value)=> runFilter(value),
         decoration: InputDecoration(
             contentPadding: EdgeInsets.all(0),
             prefixIcon: Icon(
