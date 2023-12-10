@@ -27,7 +27,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   final todosList = ToDo.todoList();
 
   @override
@@ -76,7 +81,12 @@ class MyHomePage extends StatelessWidget {
                               fontWeight: FontWeight.w500, fontSize: 29.0),
                         ),
                       ),
-                      for (ToDo todo in todosList) ToDOItems(toDo: todo),
+                      for (ToDo todo in todosList)
+                        ToDOItems(
+                          toDo: todo,
+                          onToDoChanged: _handleToChange,
+                          onDeleteItem: _deleteToDoItem,
+                        ),
                     ],
                   ),
                 ),
@@ -131,6 +141,18 @@ class MyHomePage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _handleToChange(ToDo toDo){
+    setState(() {
+      toDo.isDone=!toDo.isDone;
+    });
+  }
+
+  void _deleteToDoItem(String id){
+    setState(() {
+      todosList.removeWhere((item) => item.id==id);
+    });
   }
 
   Container searchBar() {
