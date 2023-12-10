@@ -34,6 +34,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final todosList = ToDo.todoList();
+  final _todoController=TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -114,6 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     child: TextField(
+                      controller: _todoController ,
                       decoration: InputDecoration(
                         hintText: "Add a new todo item",
                         border: InputBorder.none,
@@ -125,7 +127,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   margin: EdgeInsets.only(bottom: 30,right: 20),
                   child: ElevatedButton(
-                    onPressed: () { },
+                    onPressed: () {
+                      _addToDoItem(_todoController.text);
+                    },
                     child:Text("+",style: TextStyle(fontSize: 40.0,color: Colors.white),),
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -141,6 +145,15 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
+  }
+
+  void _addToDoItem(String toDo){
+    setState(() {
+      todosList.add(ToDo(
+          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          todoText: toDo));
+    });
+    _todoController.clear();
   }
 
   void _handleToChange(ToDo toDo){
